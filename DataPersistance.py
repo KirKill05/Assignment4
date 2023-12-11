@@ -5,8 +5,11 @@ class DataPersistenceManager:
         self.filename = filename
 
     def save_data(self, movies):
-        with open(self.filename, 'w') as file:
-            json.dump([vars(movie) for movie in movies], file)
+        try:
+            with open(self.filename, 'w') as file:
+                json.dump([vars(movie) for movie in movies], file)
+        except Exception as e:
+            print(f"Error saving data: {e}")
 
     def load_data(self):
         try:
@@ -14,4 +17,7 @@ class DataPersistenceManager:
                 data = json.load(file)
                 return [Movie(movie['year'], movie['name'], movie['genre']) for movie in data]
         except FileNotFoundError:
+            return []
+        except Exception as e:
+            print(f"Error loading data: {e}")
             return []

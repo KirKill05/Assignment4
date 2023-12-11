@@ -6,29 +6,41 @@ class Movie:
 
 class MovieManager:
     def __init__(self):
-        self.movies = []
+        self.movies_by_year = {}
 
     def create_movie(self, year, name, genre):
+        if year not in self.movies_by_year:
+            self.movies_by_year[year] = []
+
         movie = Movie(year, name, genre)
-        self.movies.append(movie)
+        self.movies_by_year[year].append(movie)
         print(f"Movie '{name}' added successfully.")
 
     def read_movie(self, key_attribute, non_key_attribute):
-        for movie in self.movies:
-            if str(getattr(movie, key_attribute)) == non_key_attribute or \
-                    getattr(movie, key_attribute) == non_key_attribute:
-                print(f"Year: {movie.year}, Name: {movie.name}, Genre: {movie.genre}")
+        for year, movies in self.movies_by_year.items():
+            if movies is None:
+                print("No movies found with this provided year.")
+            else:
+                for movie in movies:
+                    if str(getattr(movie, key_attribute)) == non_key_attribute or \
+                            getattr(movie, key_attribute) == non_key_attribute:
+                        print(f"Year: {movie.year}, Name: {movie.name}, Genre: {movie.genre}")
 
-    def edit_movie(self, year, new_name, new_genre):
-        for movie in self.movies:
-            if movie.year == year:
-                movie.name = new_name
-                movie.genre = new_genre
-                print(f"Movie edited successfully.")
+    def edit_movie(self, year, search_name, new_name, new_genre):
+        if year in self.movies_by_year:
+            for movie in self.movies_by_year[year]:
+                if movie.name == search_name:
+                    movie.name = new_name
+                    movie.genre = new_genre
+                    print(f"Movie edited successfully.")
+                    return
+            print(f"Movie with the given name not found for editing.")
+        else:
+            print(f"No movies found for the given year.")
 
     def delete_movie(self, year):
-        for movie in self.movies:
-            if movie.year == year:
-                self.movies.remove(movie)
-                print(f"Movie deleted successfully.")
-                break
+        if year in self.movies_by_year:
+            del self.movies_by_year[year]
+            print(f"All movies for the year {year} deleted successfully.")
+        else:
+            print(f"No movies found for the given year.")

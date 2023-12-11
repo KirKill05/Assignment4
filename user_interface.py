@@ -7,7 +7,11 @@ class UserInterface:
         print("5. Exit")
 
     def get_user_choice(self):
-        return int(self.get_user_input("Enter your choice: "))
+        while True:
+            try:
+                return int(self.get_user_input("Enter your choice: "))
+            except ValueError:
+                print("Invalid input. Please enter a number.")
 
     def get_user_input(self, prompt):
         return input(prompt) 

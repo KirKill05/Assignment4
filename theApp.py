@@ -28,6 +28,7 @@ class MovieApp:
 
                 elif choice == 3:
                     year = int(self.ui.get_user_input("Enter the year of the movie to edit: "))
+                    search_name = self.ui.get_user_input("Enter the name of the film to edit: ")
                     new_name = self.ui.get_user_input("Enter the new name: ")
                     new_genre = self.ui.get_user_input("Enter the new genre: ")
                     self.movie_manager.edit_movie(year, new_name, new_genre)
@@ -37,7 +38,6 @@ class MovieApp:
                     self.movie_manager.delete_movie(year)
 
                 elif choice == 5:
-                    # Exit and save data
                     self.data_persistence_manager.save_data(self.movie_manager.movies)
                     print("Exiting the program.")
                     break
