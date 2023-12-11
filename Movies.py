@@ -18,13 +18,10 @@ class MovieManager:
 
     def read_movie(self, key_attribute, non_key_attribute):
         for year, movies in self.movies_by_year.items():
-            if movies is None:
-                print("No movies found with this provided year.")
-            else:
-                for movie in movies:
-                    if str(getattr(movie, key_attribute)) == non_key_attribute or \
-                            getattr(movie, key_attribute) == non_key_attribute:
-                        print(f"Year: {movie.year}, Name: {movie.name}, Genre: {movie.genre}")
+            for movie in movies:
+                if str(getattr(movie, key_attribute)) == non_key_attribute or \
+                        getattr(movie, key_attribute) == non_key_attribute:
+                    print(f"Year: {movie.year}, Name: {movie.name}, Genre: {movie.genre}")
 
     def edit_movie(self, year, search_name, new_name, new_genre):
         if year in self.movies_by_year:

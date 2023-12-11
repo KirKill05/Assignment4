@@ -31,7 +31,7 @@ class MovieApp:
                     search_name = self.ui.get_user_input("Enter the name of the film to edit: ")
                     new_name = self.ui.get_user_input("Enter the new name: ")
                     new_genre = self.ui.get_user_input("Enter the new genre: ")
-                    self.movie_manager.edit_movie(year, new_name, new_genre)
+                    self.movie_manager.edit_movie(year, search_name, new_name, new_genre)
 
                 elif choice == 4:
                     year = int(self.ui.get_user_input("Enter the year of the movie to delete: "))
